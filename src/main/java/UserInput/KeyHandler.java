@@ -51,7 +51,7 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_D) {
             this.rightPressed = false;
         }
-        
+
     }
 
 }
