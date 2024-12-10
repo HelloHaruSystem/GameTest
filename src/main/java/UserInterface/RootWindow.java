@@ -20,5 +20,8 @@ public class RootWindow {
 
         root.setLocationRelativeTo(null); // sets to the middle of the screen
         root.setVisible(true);
+
+        // start the game thread
+        gamePanel.startGameThread();
     }
 }
