@@ -49,35 +49,40 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void run() {
 
+        // using the deltatime for consistent frame rates
+
         // 9 zeros / one billion nanoseconds
-        double drawInterval = (double) 1000000000 / framesperSecond; // 0.01666 seconds
-        double nextDrawTime = System.nanoTime() + drawInterval;
+        double drawInterval = (double) 1000000000 / this.framesperSecond; // 0.01666 seconds
+        double delta = 0;
+        long lastTime = System.nanoTime();
+        long currentTime;
+        long timer = 0;
+        int drawCounter = 0;
 
         // Main game loop
         while (this.gameThread != null) {
 
-            // update the information such as character positions
-            update();
-            // draw the screen with the updated information
-            repaint();
+            currentTime = System.nanoTime();
 
+            delta += (currentTime - lastTime) / drawInterval;
+            timer += (currentTime - lastTime);
+            lastTime = currentTime;
 
-            try {
-                double remainingTime = nextDrawTime - System.nanoTime();
-                // convert remaining time to milliseconds
-                remainingTime = remainingTime / 1000000;
-
-                if (remainingTime < 0) {
-                    remainingTime = 0;
-                }
-
-                Thread.sleep((long) remainingTime);
-
-                nextDrawTime += drawInterval;
-
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            if (delta >= 1) {
+                // update the information such as character positions
+                update();
+                // draw the screen with the updated information
+                repaint();
+                delta--;
+                drawCounter++;
             }
+
+            if (timer >= 1000000000) {
+                System.out.println("FPS: " + drawCounter);
+                drawCounter = 0;
+                timer = 0;
+            }
+
         }
 
     }
