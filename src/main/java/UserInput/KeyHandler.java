@@ -20,24 +20,38 @@ public class KeyHandler implements KeyListener {
         // using KeyCodes
         int code = e.getKeyCode();
 
-        // if user pressed W
+        // if user pressed W and so on
         if (code == KeyEvent.VK_W) {
-
+            this.upPressed = true;
         }
-        if (code == KeyEvent.VK_W) {
-
+        if (code == KeyEvent.VK_S) {
+            this.downPressed = true;
         }
-        if (code == KeyEvent.VK_W) {
-
+        if (code == KeyEvent.VK_A) {
+            this.leftPressed = true;
         }
-        if (code == KeyEvent.VK_W) {
-
+        if (code == KeyEvent.VK_D) {
+            this.rightPressed = true;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        int code = e.getKeyCode();
 
+        if (code == KeyEvent.VK_W) {
+            this.upPressed = false;
+        }
+        if (code == KeyEvent.VK_S) {
+            this.downPressed = false;
+        }
+        if (code == KeyEvent.VK_A) {
+            this.leftPressed = false;
+        }
+        if (code == KeyEvent.VK_D) {
+            this.rightPressed = false;
+        }
+        
     }
 
 }
