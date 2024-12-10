@@ -3,10 +3,9 @@ package UserInterface;
 import javax.swing.*;
 
 public class RootWindow {
-    JFrame root;
 
     public RootWindow() {
-        root = new JFrame();
+        JFrame root = new JFrame();
         root.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         root.setResizable(false);
         root.setTitle("Haru's First Take");
