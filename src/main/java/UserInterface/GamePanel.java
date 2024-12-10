@@ -34,5 +34,37 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void run() {
         // Main game loop
+        while (this.gameThread != null) {
+
+            // TODO: update the information such as character positions
+            update();
+            // TODO: draw the screen with the updated information
+            repaint();
+        }
+
+    }
+
+    public void update() {
+
+    }
+
+    // using the paintComponent and Graphics class to paint to the canvas
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // changed Graphics g to graphics2D
+        Graphics2D g2d = (Graphics2D) g;
+
+        // setting color
+        g2d.setColor(Color.WHITE);
+
+        // drawing a rectangle to the screen
+        // using tileSize variable
+        // this will act as the player character for now
+        g2d.fillRect(100, 100, tileSize, tileSize);
+
+        // dispose of this graphics context and release any system resources that is being used
+        // this is good practice?
+        g2d.dispose();
     }
 }
