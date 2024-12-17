@@ -1,5 +1,6 @@
 package UserInterface;
 
+import Entity.Player;
 import UserInput.KeyHandler;
 
 import javax.swing.*;
@@ -11,7 +12,8 @@ public class GamePanel extends JPanel implements Runnable {
     private final int originalTileSize = 16; // 16x16 tile
     private final int scale = 3;             // used to scale up so the 16x16 tiles doesn't look too small
 
-    private final int tileSize = originalTileSize * scale; // 48x48 tile size
+    // public for use when drawing tiles to the panel in other classes
+    public final int tileSize = originalTileSize * scale; // 48x48 tile size
 
     // 16 horizontally, 12 tiles vertically
     private final int maxScreenColumn = 16;
@@ -28,10 +30,8 @@ public class GamePanel extends JPanel implements Runnable {
     // Main game Thread
     private Thread gameThread;
 
-    // sets the player's default position
-    private int playerX = 100;
-    private int playerY = 100;
-    private int playerSpeed = 4;
+    // Player character
+    Player player = new Player(this, keyHandler);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -48,7 +48,6 @@ public class GamePanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
-
         // using the deltatime for consistent frame rates
 
         // 9 zeros / one billion nanoseconds
@@ -88,18 +87,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-
-        // if the user pressed up (w) the player moves up and so on
-        if (keyHandler.upPressed) {
-            playerY -= playerSpeed;
-        } else if (keyHandler.downPressed) {
-            playerY += playerSpeed;
-        } else if (keyHandler.leftPressed) {
-            playerX -= playerSpeed;
-        } else if (keyHandler.rightPressed) {
-            playerX += playerSpeed;
-        }
-
+        player.update();
     }
 
     // using the paintComponent and Graphics class to paint to the canvas
@@ -109,13 +97,7 @@ public class GamePanel extends JPanel implements Runnable {
         // changed Graphics g to graphics2D
         Graphics2D g2d = (Graphics2D) g;
 
-        // setting color
-        g2d.setColor(Color.WHITE);
-
-        // drawing a rectangle to the screen
-        // using tileSize variable
-        // this will act as the player character for now
-        g2d.fillRect(playerX, playerY, tileSize, tileSize);
+        player.draw(g2d);
 
         // dispose of this graphics context and release any system resources that is being used
         // this is good practice?
