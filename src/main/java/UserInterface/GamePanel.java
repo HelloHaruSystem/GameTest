@@ -41,6 +41,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true); // with this the game panel can be able to receive key input
     }
 
+    // Main Game Thread
     public void startGameThread() {
         this.gameThread = new Thread(this);
         this.gameThread.start();
