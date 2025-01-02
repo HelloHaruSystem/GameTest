@@ -60,6 +60,8 @@ public class GamePanel extends JPanel implements Runnable {
         int drawCounter = 0;
 
         // Main game loop
+        // using delta timing to make sure the game runs at 60 frames per second (look up delta timing if confused)
+        // added a fps counter in the console
         while (this.gameThread != null) {
 
             currentTime = System.nanoTime();
